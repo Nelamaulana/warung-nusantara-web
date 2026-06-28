@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warung Nusantara</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🍽 Warung Nusantara</h1>
+    <p class="subtitle">Sistem Pemesanan Restoran Berbasis Firebase Firestore</p>
+
+    <div class="card">
+
+        <h2>Data Customer</h2>
+
+        <div class="input-group">
+            <label>Nama Customer</label>
+            <input type="text" id="customerName" placeholder="Masukkan nama">
+        </div>
+
+        <div class="input-group">
+            <label>No HP</label>
+            <input type="text" id="customerPhone" placeholder="08xxxxxxxxxx">
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Pilih Restoran</h2>
+
+        <select id="restaurantSelect">
+            <option value="">-- Pilih Restoran --</option>
+        </select>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Daftar Menu</h2>
+
+        <select id="menuSelect">
+            <option value="">-- Pilih Menu --</option>
+        </select>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Detail Pesanan</h2>
+
+        <div class="input-group">
+            <label>Nomor Meja</label>
+            <input type="number" id="tableNumber">
+        </div>
+
+        <div class="input-group">
+            <label>Jumlah</label>
+            <input type="number" id="qty" value="1" min="1">
+        </div>
+
+        <div class="input-group">
+            <label>Harga Satuan</label>
+            <input type="text" id="price" readonly>
+        </div>
+
+        <div class="input-group">
+            <label>Total Harga</label>
+            <input type="text" id="totalPrice" readonly>
+        </div>
+
+        <button id="btnOrder">
+            Simpan Pesanan
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Daftar Pesanan</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Customer</th>
+                    <th>Menu</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="orderList">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
