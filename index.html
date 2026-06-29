@@ -3,112 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warung Nusantara</title>
-
+    <title>Warung Nusantara — Sistem Pemesanan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <div class="navbar-brand">
+            <div class="brand-icon">🍲</div>
+            <div>
+                <div class="brand-name">Warung Nusantara</div>
+                <div class="brand-tagline">Sistem Pemesanan Digital</div>
+            </div>
+        </div>
+        <div class="navbar-status">
+            <span class="status-dot"></span>
+            <span>Buka 08:00 – 21:00</span>
+        </div>
+    </div>
+</nav>
 
-    <h1>🍽 Warung Nusantara</h1>
-    <p class="subtitle">Sistem Pemesanan Restoran Berbasis Firebase Firestore</p>
+<!-- ===== MAIN ===== -->
+<main class="page-wrap">
 
-    <div class="card">
+    <!-- Kolom Kiri: Form -->
+    <div class="col-form">
 
-        <h2>Data Customer</h2>
-
-        <div class="input-group">
-            <label>Nama Customer</label>
-            <input type="text" id="customerName" placeholder="Masukkan nama">
+        <!-- Step 1: Customer -->
+        <div class="card">
+            <div class="card-header">
+                <div class="step-badge">1</div>
+                <div>
+                    <div class="card-title">Data Pelanggan</div>
+                    <div class="card-desc">Isi nama dan nomor HP kamu</div>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label class="field-label" for="customerName">Nama Lengkap</label>
+                    <input class="field-input" type="text" id="customerName" placeholder="cth: Budi Santoso">
+                </div>
+                <div class="field">
+                    <label class="field-label" for="customerPhone">Nomor HP</label>
+                    <input class="field-input" type="text" id="customerPhone" placeholder="cth: 08123456789">
+                </div>
+            </div>
         </div>
 
-        <div class="input-group">
-            <label>No HP</label>
-            <input type="text" id="customerPhone" placeholder="08xxxxxxxxxx">
+        <!-- Step 2: Restoran & Menu -->
+        <div class="card">
+            <div class="card-header">
+                <div class="step-badge">2</div>
+                <div>
+                    <div class="card-title">Pilih Restoran & Menu</div>
+                    <div class="card-desc">Restoran tersedia di beberapa cabang</div>
+                </div>
+            </div>
+            <div class="field">
+                <label class="field-label" for="restaurantSelect">Cabang Restoran</label>
+                <div class="select-wrap">
+                    <select class="field-input" id="restaurantSelect">
+                        <option value="">— Pilih cabang —</option>
+                    </select>
+                    <span class="select-arrow">▾</span>
+                </div>
+            </div>
+            <div class="field" style="margin-top:14px">
+                <label class="field-label" for="menuSelect">Menu</label>
+                <div class="select-wrap">
+                    <select class="field-input" id="menuSelect">
+                        <option value="">— Pilih menu —</option>
+                    </select>
+                    <span class="select-arrow">▾</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Detail Pesanan -->
+        <div class="card">
+            <div class="card-header">
+                <div class="step-badge">3</div>
+                <div>
+                    <div class="card-title">Detail Pesanan</div>
+                    <div class="card-desc">Nomor meja dan jumlah item</div>
+                </div>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label class="field-label" for="tableNumber">No. Meja</label>
+                    <input class="field-input" type="number" id="tableNumber" placeholder="1 – 50" min="1" max="50">
+                </div>
+                <div class="field">
+                    <label class="field-label" for="qty">Jumlah</label>
+                    <div class="qty-control">
+                        <button type="button" class="qty-btn" id="qtyMinus">−</button>
+                        <input class="field-input qty-input" type="number" id="qty" value="1" min="1">
+                        <button type="button" class="qty-btn" id="qtyPlus">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="price-summary" id="priceSummary">
+                <div class="price-row">
+                    <span class="price-label">Harga satuan</span>
+                    <span class="price-val" id="price">—</span>
+                </div>
+                <div class="price-divider"></div>
+                <div class="price-row total-row">
+                    <span class="price-label">Total</span>
+                    <span class="price-val total-val" id="totalPrice">—</span>
+                </div>
+            </div>
+
+            <button class="btn-order" id="btnOrder">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                Kirim Pesanan
+            </button>
         </div>
 
     </div>
 
-    <div class="card">
+    <!-- Kolom Kanan: Daftar Pesanan -->
+    <div class="col-orders">
+        <div class="card orders-card">
+            <div class="card-header">
+                <div class="orders-icon">📋</div>
+                <div>
+                    <div class="card-title">Daftar Pesanan</div>
+                    <div class="card-desc">Diperbarui secara real-time</div>
+                </div>
+                <div class="realtime-badge">
+                    <span class="realtime-dot"></span> Live
+                </div>
+            </div>
 
-        <h2>Pilih Restoran</h2>
+            <!-- Filter Status -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-status="all">Semua</button>
+                <button class="filter-btn" data-status="pending">Menunggu</button>
+                <button class="filter-btn" data-status="cooking">Dimasak</button>
+                <button class="filter-btn" data-status="ready">Siap</button>
+                <button class="filter-btn" data-status="done">Selesai</button>
+            </div>
 
-        <select id="restaurantSelect">
-            <option value="">-- Pilih Restoran --</option>
-        </select>
+            <!-- Table -->
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Pelanggan</th>
+                            <th>Menu</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderList">
+                        <tr class="empty-row" id="emptyRow">
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <div class="empty-icon">🍽️</div>
+                                    <div>Belum ada pesanan masuk</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
+        </div>
     </div>
 
-    <div class="card">
+</main>
 
-        <h2>Daftar Menu</h2>
-
-        <select id="menuSelect">
-            <option value="">-- Pilih Menu --</option>
-        </select>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Detail Pesanan</h2>
-
-        <div class="input-group">
-            <label>Nomor Meja</label>
-            <input type="number" id="tableNumber">
-        </div>
-
-        <div class="input-group">
-            <label>Jumlah</label>
-            <input type="number" id="qty" value="1" min="1">
-        </div>
-
-        <div class="input-group">
-            <label>Harga Satuan</label>
-            <input type="text" id="price" readonly>
-        </div>
-
-        <div class="input-group">
-            <label>Total Harga</label>
-            <input type="text" id="totalPrice" readonly>
-        </div>
-
-        <button id="btnOrder">
-            Simpan Pesanan
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Daftar Pesanan</h2>
-
-        <table>
-
-            <thead>
-
-                <tr>
-                    <th>Customer</th>
-                    <th>Menu</th>
-                    <th>Qty</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                </tr>
-
-            </thead>
-
-            <tbody id="orderList">
-
-            </tbody>
-
-        </table>
-
-    </div>
-
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+    <span class="toast-icon" id="toastIcon">✓</span>
+    <span id="toastMsg">Pesanan berhasil!</span>
 </div>
 
 <script type="module" src="script.js"></script>
-
 </body>
 </html>
