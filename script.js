@@ -160,13 +160,26 @@ btnOrder.addEventListener("click", async () => {
     btnOrder.textContent = "Menyimpan…";
 
     try {
-        // 1. Simpan Customer
-        const customerRef = doc(collection(db, "customers"));
-        await setDoc(customerRef, {
-            name:          customerName.value.trim(),
-            phone:         customerPhone.value.trim(),
-            loyaltyPoints: 0
-        });
+        // 1. Cari customer berdasarkan nomor HP — kalau sudah ada, pakai yang lama
+        const q        = query(
+            collection(db, "customers"),
+            where("phone", "==", customerPhone.value.trim())
+        );
+        const existing = await getDocs(q);
+
+        let customerRef;
+        if (!existing.empty) {
+            // Sudah ada → pakai dokumen lama, tidak buat duplikat
+            customerRef = existing.docs[0].ref;
+        } else {
+            // Belum ada → buat customer baru
+            customerRef = doc(collection(db, "customers"));
+            await setDoc(customerRef, {
+                name:          customerName.value.trim(),
+                phone:         customerPhone.value.trim(),
+                loyaltyPoints: 0
+            });
+        }
 
         // 2. Simpan Order
         const orderRef = doc(collection(db, "orders"));
